@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateCustomerRequest;
+use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 
@@ -14,9 +16,9 @@ class CustomerController extends Controller
     {
         return Customer::all();
     }
-    public function store(Request $request)
+    public function store(CreateCustomerRequest $request)
     {
-        return Customer::create($request->all());
+        return Customer::create($request->validated());
     }
 
     public function show(Customer $customer)
@@ -24,9 +26,9 @@ class CustomerController extends Controller
         return $customer;
     }
 
-    public function update(Request $request, Customer $customer)
+    public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        $customer->update($request->all());
+        $customer->update($request->validated());
         return $customer;
     }
 
