@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return Customer::all();
+        return CustomerResource::collection(Customer::all());
     }
     public function store(CreateCustomerRequest $request)
     {
@@ -23,7 +24,7 @@ class CustomerController extends Controller
 
     public function show(Customer $customer)
     {
-        return $customer;
+        return new CustomerResource($customer);
     }
 
     public function update(UpdateCustomerRequest $request, Customer $customer)
